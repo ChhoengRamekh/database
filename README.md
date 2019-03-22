@@ -5,14 +5,15 @@
 SELECT stu.province from tblstudent stu WHERE stu.province 
 not in(SELECT pro.pro_en_name FROM tblprovinces pro);
 
-//select the province not start with letter P
+**select the province not start with letter P**
+
 use test;
 SELECT * FROM tblstudent 
 WHERE province NOT LIKE 'P%';
 
 
 
-//select the province in tblprovince that not in the tbl student
+**select the province in tblprovince that not in the tbl student**
 use test;
 select pro_id, pro_en_name, pro_kh_name 
 from tblprovinces pro where pro_en_name 
@@ -20,42 +21,48 @@ not in(select province from tblstudent);
 
 
 
-//select the student who come from Phnom Penh
+**select the student who come from Phnom Penh**
+
 SELECT * FROM tblstudent 
 WHERE province LIKE 'Phnom Penh';
 
 
-//select the province which is the same in table tblprovinces
+**select the province which is the same in table tblprovinces**
+
 use test;
 SELECT studentid, firstname, lastname, subject, province 
 FROM tblstudent WHERE province in
 (SELECT pro_en_name FROM tblprovinces WHERE pro_kh_name='???????');
 
 
-//select the student who has teacher incharge lastname Vongkol
+**select the student who has teacher incharge lastname Vongkol**
+
 SELECT firstname, lastname, subject, province FROM tblstudent 
 WHERE teacherinchargeid 
 in (SELECT teacherid FROM tblteacher WHERE lastname="Vongkol");
 
 
 
-//inner join or in// 
+***inner join or in*** 
 
-//select the student province which has in tblprovince
+**select the student province which has in tblprovince**
+
 select firstname, province from tblstudent 
 where province 
 in (select pro_en_name from tblprovinces);
 
 
-//select the student province which has in tblprovince
+**select the student province which has in tblprovince**
+
 select studentid, firstname, lastname, province from tblstudent
 where province in(select pro_en_name from tblprovinces);
 
-//select the student province which has in tblprovince
+**select the student province which has in tblprovince**
+
 select studentid, firstname, lastname, province from tblstudent
 inner join tblprovinces on province = pro_en_name;
 
-//select the student who has the teacher incharge 
+**select the student who has the teacher incharge**
 select stu.studentid, stu.firstname, stu.lastname from tblstudent stu
 where stu.teacherinchargeid in(select teacherid from tblteacher);
 
@@ -72,7 +79,7 @@ from tblstudent stu inner join tblteacher tea where stu.teacherinchargeid = tea.
 
 
 
-//select the student and teacher who come from the same provicne
+**select the student and teacher who come from the same provicne
 select stu.firstname, stu.lastname, tea.firstname , tea.lastname, 
 from tblstudent stu inner join tblteacher tea on tea.province = stu.province; 
 
@@ -370,6 +377,20 @@ DELIMITER //
 insert into tblprovinces (pro_en_name, pro_kh_name, status);
 VALUES ("Phnom Penh", "ភ្នំពេញ", 1);
 
+
+**Add teacdher to trigger table**
+DELIMITER //
+create trigger after_add_teacher after insert on tblteacher
+for each row 
+		BEGIN
+			if(new.sex = "M" || new.sex = "Male" || new.sex = "male") then 
+				insert into after_add_teacher(message) values("Add male teacher");
+			else
+				insert into after_add_teacher(message) values("Add female teacher");
+			end if;
+		END
+
+	
 
 
 
