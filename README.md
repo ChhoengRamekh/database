@@ -354,7 +354,7 @@ DELETE FROM tblprovinces where pro_id=21;
 
 
 
-#####Create trigger province insert
+######Create trigger province insert
 
 use test;
 DELIMITER //
