@@ -1,6 +1,7 @@
 
 
-###***Select the Province that not in the other table***
+######***Select the Province that not in the other table***
+
 SELECT stu.province from tblstudent stu WHERE stu.province 
 not in(SELECT pro.pro_en_name FROM tblprovinces pro);
 
