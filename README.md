@@ -354,7 +354,7 @@ DELETE FROM tblprovinces where pro_id=21;
 
 
 
-//
+######Create trigger province insert
 
 use test;
 DELIMITER //
@@ -366,9 +366,7 @@ DELIMITER //
 			VALUES(NEW.pro_id,'insert',NEW.pro_en_name,NEW.pro_kh_name,CURDATE());
 		END   
 		
-		
-		
-		insert into tblprovinces (pro_en_name, pro_kh_name, status);
+insert into tblprovinces (pro_en_name, pro_kh_name, status);
 VALUES ("Phnom Penh", "ភ្នំពេញ", 1);
 
 
