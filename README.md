@@ -110,13 +110,13 @@ from tblstudent stu inner join tblteacher tea on tea.province = stu.province;
 
 ##subquery
 
-//select the student who the parent are police
+**select the student who the parent are police**
 
 select * from tblstudent where parentinchargeid in (select parentid from tblparent where job = 'Police');
 
 
 
-//select the student that has lowest GTA 
+**select the student that has lowest GTA **
 
 select concat(firstname,' ',lastname) as "Full Name",
 
@@ -135,7 +135,7 @@ where gpa = (select min(gpa) from tblstudent);
 
 
 
-//select the student who not have the teacher incharge id have email hengvongkol and not the parent id PT004
+**select the student who not have the teacher incharge id have email hengvongkol and not the parent id PT004**
 
 select * from tblstudent
 
@@ -149,7 +149,7 @@ and province=(select province from tblparent where parentid='PT0004');
 
 
 
-//select the film that leng is greater than average and order by title a-z
+**select the film that leng is greater than average and order by title a-z**
 
 use sakila;
 
@@ -162,7 +162,7 @@ Order by title asc;
 
 
 
-//select province of student that not the come from the teacher that gender Male and gpa more than 2 and less than or equal 5
+**select province of student that not the come from the teacher that gender Male and gpa more than 2 and less than or equal 5**
 
 use test;
 
@@ -176,7 +176,7 @@ and gpa not in (select gpa from tblstudent where gpa>2 and gpa <= 5);
 
 
 
-//select the student student and has teacher incharge who come from Phnom Penh
+**select the student student and has teacher incharge who come from Phnom Penh**
 
 select * from tblstudent stu
 
@@ -186,7 +186,7 @@ where stu.teacherinchargeid = tea.teacherid and province ="Phnom Penh");
 
 
 
-//list teacher who don't have studentincharge
+**list teacher who don't have studentincharge**
 
 select * from tblteacher tea
 
@@ -195,7 +195,7 @@ where not exists (select * from tblstudent stu
 where tea.teacherid = stu.teacherinchargeid);
 
 
-//select the student who has lowest gpa 
+**select the student who has lowest gpa **
 
 use test;
 
@@ -211,7 +211,7 @@ where gpa = (select MIN(gpa) from tblstudent);
 
 
 
-//select student who has teacherincharge
+**select student who has teacherincharge**
 
 use test;
 
@@ -254,7 +254,7 @@ from tblstudent stu, tblteacher tea
 where stu.teacherinchargeid = tea.teacherid and tea.province="Phnom Penh";
 
 
-//select film that has category and has category Animation
+**select film that has category and has category Animation**
 
 use sakila;
 
@@ -329,7 +329,7 @@ and c.name="Animation";
 
 
 
-//Create View
+***Create View
 
 use test;
 
@@ -351,7 +351,7 @@ select * from studentGPA;
 
 
 
-//[view] student who parent as teacher
+****[view] student who parent as teacher
 
 create view StuJobTeacher as
 
@@ -398,7 +398,7 @@ stu.phone as "Contact"
 from tblstudent stu where gpa = (select min(gpa) from tblstudent);
 
 
-//Using procedure
+***Using procedure
 
 se test;
 
@@ -415,7 +415,7 @@ DELIMITER //
 call GetAllStudent();
 
 
-//Get student by universtity
+***Get student by universtity
 
 use test;
 
@@ -436,7 +436,7 @@ call getStudentByUniversity('PNC');
 
 
 
-//get student id and get the gpa of that student
+**get student id and get the gpa of that student
 
 DELIMITER //
 
@@ -457,7 +457,7 @@ select @gpa;
 
 
 
-//find the related name
+**find the related name
 
 use test;
 
@@ -474,7 +474,7 @@ DELIMITER //
 
 call getStudentLastName('Ou');
 
-//find age knowing the born year
+**find age knowing the born year
 
 DELIMITER //
 
@@ -489,7 +489,7 @@ DELIMITER //
 		
 call findYourAge(1989);
 
-//trigger
+**trigger
 
 DELIMITER //
 
@@ -508,7 +508,7 @@ DELIMITER //
 		END //
 
 
->>use test;
+use test;
 
 UPDATE tblprovinces set pro.status = 2 where pro_id =5;
 
@@ -564,23 +564,14 @@ VALUES ("Phnom Penh", "ភ្នំពេញ", 1);
 **Add teacdher to trigger table**
 
 DELIMITER //
-
 create trigger after_add_teacher after insert on tblteacher
-
 for each row 
-
 		BEGIN
-		
-			if(new.sex = "M" || new.sex = "Male" || new.sex = "male") then 
-			
-				insert into after_add_teacher(message) values("Add male teacher");
-				
-			else
-			
-				insert into after_add_teacher(message) values("Add female teacher");
-				
-			end if;
-			
+			if(new.sex = "M" || new.sex = "Male" || new.sex = "male") then 	
+				insert into after_add_teacher(message) values("Add male teacher");		
+			else		
+				insert into after_add_teacher(message) values("Add female teacher");			
+			end if;		
 		END
 
 	
